@@ -1,0 +1,40 @@
+{
+  "name": "link-react-templates",
+  "version": "0.0.1",
+  "description": "Link to React Templates directly from within HTML",
+  "publishConfig": {
+    "registry": "http://repo.dev.wix/artifactory/api/npm/npm-local"
+  },
+  "main": "./src/linkrt.js",
+  "bin": {
+    "rt": "./src/linkrt.browser.js"
+  },
+  "scripts": {
+    "test": "node test/src/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wix/link-react-templates.git"
+  },
+  "author": "Dan Shappir",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wix/link-react-templates/issues"
+  },
+  "homepage": "https://github.com/wix/link-react-templates",
+  "dependencies": {
+    "react-templates": "git+ssh://git@github.com:wix/react-templates.git#gh-pages",
+    "jquery-browserify": "^1.8.1",
+    "lodash": "^2.4.1",
+    "react": "^0.12.0",
+    "connect": "^3.3.3",
+    "serve-static": "^1.7.1"
+  },
+  "devDependencies": {
+    "codemirror": "^4.7.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^3.2.0",
+    "grunt-eslint": "^2.0.0",
+    "tape": "^3.0.2"
+  }
+}
