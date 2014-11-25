@@ -7,6 +7,16 @@
 </head>
 <body>
     <h1>Link React Templates</h1>
-    <link href="sample/todo" type="text/rt" props="todos:['Hello','there','world']">
+    <h3>Simple link (no backing JavaScript)</h3>
+    <link href="sample/simple.rt" type="text/rt">
+    <h3>Simple link with props</h3>
+    <link href="sample/simple" type="text/rt" props="name:'Captain Kirk'">
+    <h3>Stateful link (with backing JavaScript)</h3>
+    <link href="sample/todo" type="text/rt">
+    <h3>Stateful link with props</h3>
+    <link href="sample/todo" type="text/rt" props="todos:['hello','there','world']">
+    <h3>Reusable component</h3>
+    <link href="sample/todo" type="text/rt" name="todo">
+    <link href="sample/container" type="text/rt">
 </body>
 </html>

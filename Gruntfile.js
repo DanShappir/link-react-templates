@@ -10,7 +10,7 @@ module.exports = function (grunt) {
             all: {
                 src: [
                     'src/**/*.js', 
-                    'sample/**/*.js',
+                    '!sample/**/*.js',
                     '!src/linkrt.browser.js'
                 ]
             },
@@ -49,12 +49,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-eslint');
 
-    grunt.registerTask('default', ['eslint', 'build_sources', 'check', 'build']);
+    grunt.registerTask('default', ['eslint', 'browserify']);
     grunt.registerTask('test', ['jasmine_node']);
 
     grunt.registerTask('teamcity-check', ['eslint:teamcity'/*, 'scsslint'*/]);
     grunt.registerTask('teamcity', ['build_sources', 'teamcity-check', 'packages:teamcity', 'static-upload-to-s3']);
     grunt.registerTask('teamcity-test', ['jasmine_node', 'karma:teamcity', 'cssTest']);
 
-    grunt.registerTask('all', ['install', 'default', 'test']);
+    grunt.registerTask('all', ['install', 'default']);
 };
