@@ -35,7 +35,7 @@ To use linkrt in an HTML page add a &lt;script&gt; tag referencing *linkrt.brows
 
 If an error occurs during download or processing of React Templates, an error message will be written to the browser's Dev Tools Console.
 
-## Passing Properties
+## Passing properties
 React utilizes the props setting to pass initialization data to components. linkrt supports this mechanism through the use of a *props* attribute on the &lt;link&gt; element. For example, given the .rt file:
 
 ```html
@@ -60,3 +60,15 @@ and the HTML:
 the text "Hello Jim" will be displayed in the browser window.
 
 The values of the *props* attribute is a comma-delimited list of name/values pairs, which are separated by colons. String values should be enclosed in single quotes. The entires value of props can be optionally enclosed in { }, to give it a JSON-like appearance.
+
+## JavaScript for state
+
+## Component composition
+
+## Advanced
+
+### anchors
+
+### events
+
+## Recommended process for bulding components
