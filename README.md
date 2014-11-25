@@ -28,6 +28,8 @@ will result in the text "Hello world" being displayed inside the browser window.
 
 linkrt also supports the inclusion of JavaScript files for implementing React Component state manipulation. Simply create a JavaScript file with the same name at the .rt file, and place it at the same location. linkrt will automatically download the JavaScript file, and attach it to the component - see below for details.
 
+## Installation
+
 ## Usage
 To use linkrt in an HTML page add a &lt;script&gt; tag referencing *linkrt.browser.js*. This tag can be placed anywhere in the page, and will not interfer with any other scripts used by the page. The linkrt script will begin downloading and processing the component files (.rt and .js) after the browser's **Document Ready** event. As soon as each component is download, it will be immediatly processed and the result will be injected into the DOM at the same place as the referring &lt;link&gt; tag.
 
