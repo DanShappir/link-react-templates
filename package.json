@@ -23,11 +23,11 @@
   },
   "homepage": "https://github.com/wix/link-react-templates",
   "dependencies": {
-    "react-templates": "git+ssh://git@github.com:wix/react-templates.git#gh-pages",
+    "connect": "^3.3.3",
     "jquery-browserify": "^1.8.1",
     "lodash": "^2.4.1",
     "react": "^0.12.0",
-    "connect": "^3.3.3",
+    "react-templates": "git+ssh://git@github.com:wix/react-templates.git#gh-pages",
     "serve-static": "^1.7.1"
   },
   "devDependencies": {
