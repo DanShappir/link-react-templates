@@ -1,6 +1,6 @@
 {
   "name": "link-react-templates",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/DanShappir/link-react-templates",
   "authors": [
     "Dan Shappir <dansh@wix.com>"
@@ -22,7 +22,6 @@
     "test",
     "tests",
     "./app.js",
-    "**/*.html",
     "Gruntfile.js",
     "target",
     "README.md"
