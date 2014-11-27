@@ -31,11 +31,11 @@ linkrt also supports the inclusion of JavaScript files for implementing React Co
 ## Installation
 Simply use [Bower](http://bower.io/):
 
-1. Install Bower: npm install -g bower
+1. Install Bower: *npm install -g bower*
 2. Configure Bower to use the [Wix Bower Registry](http://kb.wixpress.com/display/dashboard/Creating+a+bower+component)
-2. Install the package: bower install link-react-templates
+2. Install the package: *bower install link-react-templates*
 
-linkrt will now be installed in **bower_components/link-react-templates**. To use linkrt in your HTML file, you would include a tag such as &lt;script src="bower_components/link-react-templates/dist/linkrt.browser.js"&gt;
+linkrt will now be installed in *bower_components/link-react-templates*. To use linkrt in your HTML file, you would include a tag such as &lt;script src="bower_components/link-react-templates/dist/linkrt.browser.js"&gt;
 
 ## Usage
 To use linkrt in an HTML page add a &lt;script&gt; tag referencing *linkrt.browser.js*. This tag can be placed anywhere in the page, and will not interfer with any other scripts used by the page. The linkrt script will begin downloading and processing the component files (.rt and .js) after the browser's **Document Ready** event. As soon as each component is download, it will be immediatly processed and the result will be injected into the DOM at the same place as the referring &lt;link&gt; tag.
@@ -71,7 +71,9 @@ the text "Hello Jim" will be displayed in the browser window.
 The values of the *props* attribute is a comma-delimited list of name/values pairs, which are separated by colons. String values should be enclosed in single quotes. The entires value of props can be optionally enclosed in { }, to give it a JSON-like appearance.
 
 ## JavaScript for state
-Most React components maintain an internal state. 
+Most React components maintain an internal state. With React Templates this is achieved by creating a JavaScript file adjacent to the .rt file. This JavaScript files is composed with the result of the compilation of the .rt to generate the React Component. linkrt requires that the JavaScript file have the same name and location as the .rt file. For example:
+
+
 
 ## Component composition
 
