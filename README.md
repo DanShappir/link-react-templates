@@ -26,7 +26,7 @@ and an HTML file at the same location:
 ```
 will result in the text "Hello world" being displayed inside the browser window. You can put any number of &lt;link&gt; tags referencing React Template in th HTML file.
 
-linkrt also supports the inclusion of JavaScript files for implementing React Component state manipulation. Simply create a JavaScript file with the same name at the .rt file, and place it at the same location. linkrt will automatically download the JavaScript file, and attach it to the component - see below for details.
+linkrt also supports the inclusion of JavaScript files for implementing React Component state manipulation. Simply create a JavaScript file with the same name at the .rt file, and place it at the same location. linkrt will automatically download the JavaScript file, and attach it to the component - [see below for details](#javascript-for-state).
 
 ## Installation
 Simply use [Bower](http://bower.io/):
@@ -73,7 +73,27 @@ The values of the *props* attribute is a comma-delimited list of name/values pai
 ## JavaScript for state
 Most React components maintain an internal state. With React Templates this is achieved by creating a JavaScript file adjacent to the .rt file. This JavaScript files is composed with the result of the compilation of the .rt to generate the React Component. linkrt requires that the JavaScript file have the same name and location as the .rt file. For example:
 
+counter.rt
+```html
+<!doctype rt>
+<div onClick="()=>this.inc()">Click to inc: {this.state.counter}</div>
+```
 
+counter.js
+```javascript
+(function () {
+	'use strict';
+	return {
+		getInitialState: function () {
+			return {counter:0};
+		},
+		inc: function () {
+			this.setState({counter:this.state.counter + 1});
+		}
+	};
+}());
+```
+Note that counter.js contains a single, self-invoking function that returns a JavaScript object to be used as the specification for *React.createClass*. Also note that this object **does not** implement a *render* method. The *render* method is generated automatically from the .rt file.
 
 ## Component composition
 
