@@ -96,10 +96,36 @@ counter.js
 Note that counter.js contains a single, self-invoking function that returns a JavaScript object to be used as the specification for *React.createClass*. Also note that this object **does not** implement a *render* method. The *render* method is generated automatically from the .rt file.
 
 ## Component composition
+One of the most powerful features of React in general, and React Templates in particular, is the ability to [compose components](https://github.com/wix/react-templates#doctype-rt-require-dependencies-and-calling-other-components). linkrt supports this functionality using the *name* attribute on the &lt;link&gt; tag.
+
+To specify a component as composable into other components, give it a none-emty *name* attribute value. Such a component will not be rendered directly into the DOM. Instead it will become available for consumption by other components:
+
+index.html
+```html
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Link React Templates Sample</title>
+    <script src="dist/linkrt.browser.js"></script>
+</head>
+<body>
+    <link href="sample/component" type="text/rt" name="component"> <!-- no displayed directly -->
+    <link href="sample/container" type="text/rt">
+</body>
+</html>
+```
+container.rt
+```html
+<!doctype rt todo="component">
+<div style="color:white; background-color:blue; padding:4px;">
+    <component/>
+</div>
+```
 
 ## Advanced
 
-### anchors
+### Render containers
 
 ### events
 
