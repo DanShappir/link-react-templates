@@ -1,23 +1,34 @@
 {
   "name": "link-react-templates",
-  "version": "0.0.1",
-  "main": "dist/linkrt.browser.js",
-  "ignore": [
-    ".*",
-    "Gemfile*",
-    "Gruntfile.js",
-    "pom.xml",
-    "*.json",
-    "*.conf.js",
-    "app",
-    "test",
-    "maven",
-    "*.sublime*"
+  "version": "0.0.2",
+  "homepage": "https://github.com/DanShappir/link-react-templates",
+  "authors": [
+    "Dan Shappir <dansh@wix.com>"
   ],
-  "dependencies": {
-  },
-  "devDependencies": {
-  },
-  "resolutions": {
+  "description": "Link directly to React Templates",
+  "main": "dist/linkrt.browser.js",
+  "keywords": [
+    "react",
+    "template",
+    "templates"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "**/*.json",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests",
+    "./app.js",
+    "**/*.html",
+    "Gruntfile.js",
+    "target",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:DanShappir/link-react-templates.git"
   }
 }
