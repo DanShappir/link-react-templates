@@ -17,7 +17,7 @@ and an HTML file at the same location:
 <head lang="en">
     <meta charset="UTF-8">
     <title>Link React Templates Sample</title>
-    <script src="src/linkrt.browser.js"></script>
+    <script src="dist/linkrt.browser.js"></script>
 </head>
 <body>
     <link href="sample/sample.rt" type="text/rt">
@@ -29,6 +29,13 @@ will result in the text "Hello world" being displayed inside the browser window.
 linkrt also supports the inclusion of JavaScript files for implementing React Component state manipulation. Simply create a JavaScript file with the same name at the .rt file, and place it at the same location. linkrt will automatically download the JavaScript file, and attach it to the component - see below for details.
 
 ## Installation
+Simply use [Bower](http://bower.io/):
+
+1. Install Bower: npm install -g bower
+2. Configure Bower to use the [Wix Bower Registry](http://kb.wixpress.com/display/dashboard/Creating+a+bower+component)
+2. Install the package: bower install link-react-templates
+
+linkrt will now be installed in **bower_components/link-react-templates**. To use linkrt in your HTML file, you would include a tag such as &lt;script src="bower_components/link-react-templates/dist/linkrt.browser.js"&gt;
 
 ## Usage
 To use linkrt in an HTML page add a &lt;script&gt; tag referencing *linkrt.browser.js*. This tag can be placed anywhere in the page, and will not interfer with any other scripts used by the page. The linkrt script will begin downloading and processing the component files (.rt and .js) after the browser's **Document Ready** event. As soon as each component is download, it will be immediatly processed and the result will be injected into the DOM at the same place as the referring &lt;link&gt; tag.
@@ -52,7 +59,7 @@ and the HTML:
 <head lang="en">
     <meta charset="UTF-8">
     <title>Link React Templates Sample</title>
-    <script src="src/linkrt.browser.js"></script>
+    <script src="dist/linkrt.browser.js"></script>
 </head>
 <body>
     <link href="sample/sample.rt" type="text/rt" props="name:'Jim'">
@@ -64,6 +71,7 @@ the text "Hello Jim" will be displayed in the browser window.
 The values of the *props* attribute is a comma-delimited list of name/values pairs, which are separated by colons. String values should be enclosed in single quotes. The entires value of props can be optionally enclosed in { }, to give it a JSON-like appearance.
 
 ## JavaScript for state
+Most React components maintain an internal state. 
 
 ## Component composition
 
