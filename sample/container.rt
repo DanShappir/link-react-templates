@@ -1,4 +1,4 @@
 <!doctype rt todo="todo">
-<div style="border: solid 2px;">
+<div style="color:white; background-color:blue; padding:4px; width:20em">
     <todo/>
 </div>

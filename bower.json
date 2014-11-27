@@ -1,0 +1,23 @@
+{
+  "name": "link-react-templates",
+  "version": "0.0.1",
+  "main": "dist/linkrt.browser.js",
+  "ignore": [
+    ".*",
+    "Gemfile*",
+    "Gruntfile.js",
+    "pom.xml",
+    "*.json",
+    "*.conf.js",
+    "app",
+    "test",
+    "maven",
+    "*.sublime*"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "resolutions": {
+  }
+}

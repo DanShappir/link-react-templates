@@ -3,19 +3,24 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Link React Templates</title>
-    <script src="src/linkrt.browser.js"></script>
+    <script src="dist/linkrt.browser.js"></script>
 </head>
 <body>
     <h1>Link React Templates</h1>
-    <h3>Simple link (no backing JavaScript)</h3>
+    <hr>
+    <h3>Simple link (no backing JavaScript): simple.rt</h3>
     <link href="sample/simple.rt" type="text/rt">
-    <h3>Simple link with props</h3>
+    <hr>
+    <h3>Simple link with props: simple.rt</h3>
     <link href="sample/simple" type="text/rt" props="name:'Captain Kirk'">
-    <h3>Stateful link (with backing JavaScript)</h3>
+    <hr>
+    <h3>Stateful link (with backing JavaScript): todo.rt</h3>
     <link href="sample/todo" type="text/rt">
-    <h3>Stateful link with props</h3>
+    <hr>
+    <h3>Stateful link with props: todo.rt</h3>
     <link href="sample/todo" type="text/rt" props="todos:['hello','there','world']">
-    <h3>Reusable component</h3>
+    <hr>
+    <h3>Reusable component: container.rt + todo.rt</h3>
     <link href="sample/todo" type="text/rt" name="todo">
     <link href="sample/container" type="text/rt">
 </body>
