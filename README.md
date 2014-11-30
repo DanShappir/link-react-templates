@@ -95,6 +95,8 @@ counter.js
 ```
 Note that counter.js contains a single, self-invoking function that returns a JavaScript object to be used as the specification for *React.createClass*. Also note that this object **does not** implement a *render* method. The *render* method is generated automatically from the .rt file.
 
+Script files retrieved by linkrt can use React, lodash and jQuery, without having to include these libraries from the HTML file.
+
 ## Component composition
 One of the most powerful features of React in general, and React Templates in particular, is the ability to [compose components](https://github.com/wix/react-templates#doctype-rt-require-dependencies-and-calling-other-components). linkrt supports this functionality using the *name* attribute on the &lt;link&gt; tag.
 
@@ -126,6 +128,7 @@ container.rt
 ## Advanced
 
 ### Render containers
+After linkrt retrieves and compiles the React Templates, it embeds them in the DOM instead of the referring &lt;link&gt; tag. This is done by replacing the &lt;link&gt; tag with the following HTML code: &lt;span class="linkrt-container"&gt;&lt;/span&gt;. It then uses that &lt;span&gt; tag as the target for the rendering. This means that you can use the *linkrt-container* class to identify or style all the component containers.
 
 ### events
 
