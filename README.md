@@ -130,6 +130,17 @@ container.rt
 ### Render containers
 After linkrt retrieves and compiles the React Templates, it embeds them in the DOM instead of the referring &lt;link&gt; tag. This is done by replacing the &lt;link&gt; tag with the following HTML code: &lt;span class="linkrt-container"&gt;&lt;/span&gt;. It then uses that &lt;span&gt; tag as the target for the rendering. This means that you can use the *linkrt-container* class to identify or style all the component containers.
 
-### events
+[As dscribed above](https://github.com/DanShappir/link-react-templates#component-composition), &lt;link&gt; tags that have the *name* attribute are not injected directly into the DOM. As a result, the &lt;link&gt; is not replaced with a &lt;span&gt;. Instead, it's wholly removed from the DOM.
+
+### Events
+After successfuly injectng a React component into the DOM, linkrt generates a DOM event that will bubble from the containing &lt;span&gt; tag up to the root *window* object. The event type is *linkRtRender*, and the event target will be set to the containing &lt;span&gt; tag:
+
+```html
+<script>
+    window.onlinkRtRender = function (event) {
+        debugger;
+    };
+</script>
+```
 
 ## Recommended process for bulding components
