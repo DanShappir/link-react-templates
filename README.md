@@ -138,7 +138,7 @@ After successfuly injectng a React component into the DOM, linkrt generates a DO
 ```html
 <script>
     window.onlinkRtRender = function (event) {
-        debugger;
+        console.log(event.target);
     };
 </script>
 ```
