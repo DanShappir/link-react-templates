@@ -128,9 +128,11 @@ container.rt
 ## Advanced
 
 ### Render containers
-After linkrt retrieves and compiles the React Templates, it embeds them in the DOM instead of the referring &lt;link&gt; tag. This is done by replacing the &lt;link&gt; tag with the following HTML code: &lt;span class="linkrt-container"&gt;&lt;/span&gt;. It then uses that &lt;span&gt; tag as the target for the rendering. This means that you can use the *linkrt-container* class to identify or style all the component containers.
+After linkrt retrieves and compiles the React Templates, it embeds them in the DOM instead of the referring &lt;link&gt; tags. This is done by replacing the &lt;link&gt; tags with the following HTML code: &lt;span class="linkrt-container"&gt;&lt;/span&gt;. It then uses the &lt;span&gt; tags as the target for the rendering. This means that you can use the *linkrt-container* class name to identify or style all the component containers.
 
-[As dscribed above](#component-composition), &lt;link&gt; tags that have the *name* attribute are not injected directly into the DOM. As a result, the &lt;link&gt; is not replaced with a &lt;span&gt;. Instead, it's wholly removed from the DOM.
+In addition, if the original &lt;link&gt; tag has *id*, *style*, or *class* attributes, these attributes will be copied over to the &lt;span&gt; tag that replaces it. In the case of the *class* attribute, the *linkrt-container* class name will be appended to the list of class names copied over from the original &lt;link&gt; tag.
+
+[As dscribed above](#component-composition), &lt;link&gt; tags that have the *name* attribute are not injected directly into the DOM. As a result, such &lt;link&gt; tags are not replaced with a &lt;span&gt;. Instead, they are wholly removed from the DOM.
 
 ### Events
 After successfuly injectng a React component into the DOM, linkrt generates a DOM event that will bubble from the containing &lt;span&gt; tag up to the root *window* object. The event type is *linkRtRender*, and the event target will be set to the containing &lt;span&gt; tag:
