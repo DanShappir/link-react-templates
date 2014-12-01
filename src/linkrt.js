@@ -1,4 +1,4 @@
-var reactTemplates = require('react-templates');
+var reactTemplates = require('react-templates/src/reactTemplates');
 var React = require('react/addons');
 var _ = require('lodash');
 var $ = require('jquery-browserify');

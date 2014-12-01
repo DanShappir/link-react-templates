@@ -1,2 +1,2 @@
 <!doctype rt>
-<div>Hello {(this.props.name || 'world')}</div>
+<div>Hello {this.props.name || 'world'}</div>
