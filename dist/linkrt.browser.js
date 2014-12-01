@@ -57241,7 +57241,12 @@ $(function () {
         if (name) {
             $this.remove();
         } else {
-            $container = $('<span class="linkrt-container"></span>').replaceAll($this);
+            $container = $('<span>')
+                .attr('id', $this.attr('id'))
+                .attr('style', $this.attr('style'))
+                .attr('class', $this.attr('class'))
+                .addClass('linkrt-container')
+                .replaceAll($this);
         }
 
         var rturl = $this.attr('href');

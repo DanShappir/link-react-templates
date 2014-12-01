@@ -5,7 +5,7 @@
   "authors": [
     "Dan Shappir <dansh@wix.com>"
   ],
-  "description": "Link directly to React Templates",
+  "description": "Link to React Templates directly from within HTML",
   "main": "dist/linkrt.browser.js",
   "keywords": [
     "react",

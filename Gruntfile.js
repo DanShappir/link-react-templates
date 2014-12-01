@@ -1,6 +1,7 @@
 'use strict';
 module.exports = function (grunt) {
     grunt.initConfig({
+        pkg: grunt.file.readJSON('bower.json'),
         clean: {
             main: {
                 src: ['src/linkrt.browser.js']
@@ -32,13 +33,25 @@ module.exports = function (grunt) {
                     'dist/linkrt.browser.js': ['src/linkrt.js']
                 }
             }
+        },
+        uglify: {
+            options: {
+                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+                    '<%= grunt.template.today("yyyy-mm-dd") %> */'
+            },
+            target: {
+                files: {
+                    'dist/linkrt.min.js': ['dist/linkrt.browser.js']
+                }
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-eslint');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('default', ['eslint', 'browserify']);
+    grunt.registerTask('default', ['eslint', 'browserify', 'uglify:target']);
 
     grunt.registerTask('teamcity-check', ['eslint:teamcity']);
     grunt.registerTask('teamcity', ['build_sources', 'teamcity-check']);
