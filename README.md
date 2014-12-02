@@ -1,6 +1,6 @@
 # Link React Templates
 
-[React Templates](https://github.com/wix/react-templates) provide a powerful mechanism for constructing [React](http://facebook.github.io/react/index.html) Components using HTML syntax. **Link React Templates** (linkrt) extends this mechanism by providing an easy to use environment for rapid design, prototyping, and development of React Templates. In certian scenarios it can also be used for production deployments.
+[React Templates](https://github.com/wix/react-templates) provide a powerful mechanism for constructing [React](http://facebook.github.io/react/index.html) Components using HTML syntax. **Link React Templates** (linkrt) extends this mechanism by providing an easy to use environment for rapid design, prototyping, and development of React Templates. In certian scenarios it can also be used for production deployments. See the recommended steps for using linkrt for designing and implementing React components.
 
 ## How does it work
 linkrt allows you to easily embed React Templates directly into the HTML, without requiring explicit pre-compilation, or any special mechanism on the server-side. Simply place &lt;link&gt; tags in the HTML which refer to the .rt files - linkrt will download the .rt files, compile them in-memory on the fly, and replace the original &lt;link&gt; tags with the result. For example, given the file sample.rt:
@@ -156,7 +156,8 @@ After successfuly injectng a React component into the DOM, linkrt generates a DO
 ## Recommended process for bulding components
 Here is a suggested best practice for using linkrt for designing, implementing and debugging React components:
 
-1. Design and style the component's prototype directly in the HTML document.
+1. Design and style the component's prototype directly in the HTML document
+
     index.html:
     ```html
     <!DOCTYPE html>
@@ -186,6 +187,7 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     </html>
     ```
 2. Copy the component's content into a separate .rt file and referrence it from the HTML. No need to create a JavaScript file yet
+
     index.htm:
     ```html
     <!DOCTYPE html>
