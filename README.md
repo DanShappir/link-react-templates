@@ -186,7 +186,7 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     </body>
     </html>
     ```
-2. Copy the component's content into a separate .rt file and referrence it from the HTML. No need to create a JavaScript file yet
+2. Cut and paste the component's content into a separate .rt file and referrence it from the HTML. No need to create a JavaScript file yet
 
     index.htm:
     ```html
