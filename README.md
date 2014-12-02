@@ -1,6 +1,6 @@
 # Link React Templates
 
-[React Templates](https://github.com/wix/react-templates) provide a powerful mechanism for constructing [React](http://facebook.github.io/react/index.html) Components using HTML syntax. **Link React Templates** (linkrt) extends this mechanism by providing an easy to use environment for rapid design, prototyping, and development of React Templates. In certian scenarios it can also be used for production deployments. See the recommended steps for using linkrt for designing and implementing React components.
+[React Templates](https://github.com/wix/react-templates) provide a powerful mechanism for constructing [React](http://facebook.github.io/react/index.html) Components using HTML syntax. **Link React Templates** (linkrt) extends this mechanism by providing an easy to use environment for rapid design, prototyping, and development of React Templates. In certian scenarios it can also be used for production deployments. [See the recommended steps for using linkrt for designing and implementing React components](#recommended-process-for-bulding-components).
 
 ## How does it work
 linkrt allows you to easily embed React Templates directly into the HTML, without requiring explicit pre-compilation, or any special mechanism on the server-side. Simply place &lt;link&gt; tags in the HTML which refer to the .rt files - linkrt will download the .rt files, compile them in-memory on the fly, and replace the original &lt;link&gt; tags with the result. For example, given the file sample.rt:
@@ -294,7 +294,6 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     todo.js
     ```javascript
     (function () {
-        'use strict';
         return {
             mixins: [React.addons.LinkedStateMixin],
     
