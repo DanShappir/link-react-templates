@@ -1,5 +1,4 @@
 (function () {
-    'use strict';
     return {
         mixins: [React.addons.LinkedStateMixin],
 
