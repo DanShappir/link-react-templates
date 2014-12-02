@@ -219,3 +219,118 @@ todo.rt:
     <button>Clear done</button>
 </div>
 ```
+3. Add directives, such as rt-repeat and rt-if, using data provided via *props*
+index.htm:
+```html
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <script src="dist/linkrt.browser.js"></script>
+</head>
+<body>
+    <link href="todo" type="text/rt" props="todos:['first','second','third']">
+</body>
+</html>
+```
+todo.rt:
+```html
+<!doctype rt>
+<div>
+    Have 0 todos done,
+    and 1 not done
+    <br/>
+    <div rt-repeat="todo in this.props.todos" key="{todo}">
+        <button>x</button>
+        <input type="checkbox">
+        <span>{todo}</span>
+    </div>
+    <form>
+        <input type="text">
+        <button type="submit">Add</button><br/>
+    </form>
+    <button>Clear done</button>
+</div>
+```
+4. Implement the JavaScript for event handling and state manipulation
+```html
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <script src="dist/linkrt.browser.js"></script>
+</head>
+<body>
+    <link href="todo" type="text/rt">
+</body>
+</html>
+```
+todo.rt:
+```html
+<!doctype rt>
+<div>
+    Have {_.filter(this.state.todos, {done:true}).length} todos done,
+    and {_.filter(this.state.todos, {done:false}).length} not done
+    <br/>
+    <div rt-repeat="todo in this.state.todos" key="{todo.key}">
+        <button onClick="()=>this.remove(todo)">x</button>
+        <input type="checkbox" checked="{todo.done}" onChange="()=>this.toggleChecked(todoIndex)">
+        <span style="text-decoration: {todo.done ? 'line-through': 'none'}">{todo.value}</span>
+    </div>
+    <form onSubmit="(e)=>e.preventDefault(); this.add()">
+        <input key="myinput" ref="myinput" type="text" valueLink="{this.linkState('edited')}">
+        <button type="submit">Add</button><br/>
+    </form>
+    <button onClick="(e)=>e.preventDefault(); this.clearDone()">Clear done</button>
+</div>
+```
+todo.js
+```javascript
+(function () {
+    'use strict';
+    return {
+        mixins: [React.addons.LinkedStateMixin],
+
+        makeTodos: function (todos, counter) {
+            return _.map(todos, function (todo) {
+                return {value: todo, done: false, key: counter++};
+            });
+        },
+
+        getInitialState: function () {
+            var todos = this.props.todos ? this.makeTodos(this.props.todos, 0) : [];
+            return {edited: '', todos: todos, counter: todos.length};
+        },
+
+        add: function () {
+            var state = this.state;
+            var edited = state.edited.trim();
+            if (edited) {
+                var todos = state.todos.concat(this.makeTodos([edited], state.counter));
+                this.setState({todos: todos, edited: '', counter: state.counter + 1});
+            }
+        },
+
+        remove: function (todo) {
+            this.setState({todos: _.reject(this.state.todos, todo)});
+        },
+
+        toggleChecked: function (index) {
+            var todos = _.cloneDeep(this.state.todos);
+            todos[index].done = !todos[index].done;
+            this.setState({todos: todos});
+        },
+
+        clearDone: function () {
+            this.setState({todos: _.filter(this.state.todos, {done: false})});
+        },
+
+        componentDidUpdate: function () {
+            this.refs.myinput.getDOMNode().focus();
+        }
+    };
+}());
+```
+5. Break large components into smaller composable components, [using the *name* attribute](#component-composition).
