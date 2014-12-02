@@ -220,7 +220,7 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     </div>
     ```
 3. Add directives, such as rt-repeat and rt-if, using data provided via *props*
-index.htm:
+    index.htm:
     ```html
     <!DOCTYPE html>
     <html>
