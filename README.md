@@ -17,7 +17,7 @@ and an HTML file at the same location:
 <head lang="en">
     <meta charset="UTF-8">
     <title>Link React Templates Sample</title>
-    <script src="dist/linkrt.browser.js"></script>
+    <script src="dist/linkrt.min.js"></script>
 </head>
 <body>
     <link href="sample/sample.rt" type="text/rt">
@@ -38,7 +38,7 @@ Simply use [Bower](http://bower.io/):
 linkrt will now be installed in *bower_components/link-react-templates*.
 
 ## Usage
-To use linkrt in your HTML file, you need to include the tag such as &lt;script src="bower_components/link-react-templates/dist/linkrt.browser.js"&gt; - it can be place anywhere inside the HTML. **linkrt is self contained, and is not dependent on any JavaScript library**. The linkrt script will begin downloading and processing the component files (.rt and .js) after the browser's **Document Ready** event. As soon as each component is download, it will be immediatly processed and the result will be injected into the DOM, replacing the referring &lt;link&gt; tag.
+To use linkrt in your HTML file, you need to include the tag such as &lt;script src="bower_components/link-react-templates/dist/linkrt.min.js"&gt; - it can be place anywhere inside the HTML. **linkrt is self contained, and is not dependent on any JavaScript library**. The linkrt script will begin downloading and processing the component files (.rt and .js) after the browser's **Document Ready** event. As soon as each component is download, it will be immediatly processed and the result will be injected into the DOM, replacing the referring &lt;link&gt; tag.
 
 **Note:** &lt;link&gt; tags referrencing React Templates must have the *type="text/rt"* attribute, otherwise they will be igonred by linkrt. The .rt extension in the &lt;link&gt; *href* attribute is optional.
 
@@ -59,7 +59,7 @@ and the HTML:
 <head lang="en">
     <meta charset="UTF-8">
     <title>Link React Templates Sample</title>
-    <script src="dist/linkrt.browser.js"></script>
+    <script src="dist/linkrt.min.js"></script>
 </head>
 <body>
     <link href="sample/sample.rt" type="text/rt" props="name:'Jim'">
@@ -109,7 +109,7 @@ index.html
 <head lang="en">
     <meta charset="UTF-8">
     <title>Link React Templates Sample</title>
-    <script src="dist/linkrt.browser.js"></script>
+    <script src="dist/linkrt.min.js"></script>
 </head>
 <body>
     <link href="sample/component" type="text/rt" name="component"> <!-- not displayed directly -->
@@ -138,7 +138,7 @@ In addition, if the original &lt;link&gt; tag has *id*, *style*, or *class* attr
 You can instruct linkrt to expose the React, lodash and jQuery libraries it uses to other scripts on the page but placing a *data-expose* attribute on its &lt;script&gt; tag:
 
 ```html
-<script src="dist/linkrt.browser.js" data-expose></script>
+<script src="dist/linkrt.min.js" data-expose></script>
 ```
 
 ### Events
@@ -165,7 +165,7 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     <head lang="en">
         <meta charset="UTF-8">
         <title>Todo List</title>
-        <script src="dist/linkrt.browser.js"></script>
+        <script src="dist/linkrt.min.js"></script>
     </head>
     <body>
     <div>
@@ -195,7 +195,7 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     <head lang="en">
         <meta charset="UTF-8">
         <title>Todo List</title>
-        <script src="dist/linkrt.browser.js"></script>
+        <script src="dist/linkrt.min.js"></script>
     </head>
     <body>
         <link href="todo" type="text/rt">
@@ -230,7 +230,7 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     <head lang="en">
         <meta charset="UTF-8">
         <title>Todo List</title>
-        <script src="dist/linkrt.browser.js"></script>
+        <script src="dist/linkrt.min.js"></script>
     </head>
     <body>
         <link href="todo" type="text/rt" props="todos:['first','second','third']">
@@ -265,7 +265,7 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     <head lang="en">
         <meta charset="UTF-8">
         <title>Todo List</title>
-        <script src="dist/linkrt.browser.js"></script>
+        <script src="dist/linkrt.min.js"></script>
     </head>
     <body>
         <link href="todo" type="text/rt">
