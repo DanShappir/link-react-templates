@@ -220,8 +220,8 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     </div>
     ```
 3. Add directives, such as rt-repeat and rt-if, using data provided via *props*
-    index.htm:
 
+    index.htm:
     ```html
     <!DOCTYPE html>
     <html>
@@ -253,8 +253,10 @@ Here is a suggested best practice for using linkrt for designing, implementing a
         </form>
         <button>Clear done</button>
     </div>
-```
+    ```
 4. Implement the JavaScript for event handling and state manipulation
+
+    index.html
     ```html
     <!DOCTYPE html>
     <html>
