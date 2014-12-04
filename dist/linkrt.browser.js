@@ -57101,7 +57101,7 @@ module.exports = require('./lib/React');
 
         function process(rt, script, $container, name, props, rturl) {
             function generateTemplateSource(html) {
-                return reactTemplates.convertTemplateToReact(html.trim().replace(/\r/g, ''));
+                return $.Deferred().resolve(reactTemplates.convertTemplateToReact(html.trim().replace(/\r/g, '')));
             }
 
             function generateTemplateFunction(code) {
@@ -57116,13 +57116,23 @@ module.exports = require('./lib/React');
             }
 
             function generateReactClass(spec, render) {
-                /*eslint no-eval:0*/
-                spec = eval(spec);
-                if (spec.render) {
-                    console.warn('Rendering function already defined', name || '', rturl);
-                }
-                spec.render = render;
-                return React.createClass(spec);
+                return $.Deferred(function (deferred) {
+                    /*eslint no-unused-vars:0*/
+                    function define(dep, impl) {
+                        // Extract name from URL
+                        sync(rturl.replace(/(?:.*\/)?([^/.]+)(?:\.rt)?$/, '$1.rt')).resolve(render);
+                        $.when.apply(null, _.map(dep, sync)).then(impl).done(deferred.resolve);
+                    }
+                    /*eslint no-eval:0*/
+                    spec = eval(spec);
+                    if (spec) {
+                        if (spec.render) {
+                            console.warn('Rendering function already defined', name || '', rturl);
+                        }
+                        spec.render = render;
+                        deferred.resolve(React.createClass(spec));
+                    }
+                });
             }
 
             function generateProps(props) {
@@ -57136,19 +57146,22 @@ module.exports = require('./lib/React');
                 return props;
             }
 
+            function render(cls) {
+                if ($container) {
+                    props = generateProps(props);
+                    var reactComponent = React.render(React.createElement(cls, props), $container[0]);
+                    $container.trigger('linkRtRender', [reactComponent, rturl, name]);
+                }
+                if (name) {
+                    sync(name).resolve(React.createFactory(cls));
+                }
+            }
+
             try {
-                var source = generateTemplateSource(rt);
-                generateTemplateFunction(source).done(function (func) {
-                    var cls = generateReactClass(script, func);
-                    if ($container) {
-                        props = generateProps(props);
-                        var reactComponent = React.render(React.createElement(cls, props), $container[0]);
-                        $container.trigger('linkRtRender', [reactComponent, rturl, name]);
-                    }
-                    if (name) {
-                        sync(name).resolve(React.createFactory(cls));
-                    }
-                });
+                generateTemplateSource(rt)
+                    .then(generateTemplateFunction)
+                    .then(generateReactClass.bind(this, script))
+                    .then(render);
             } catch (e) {
                 console.error('Failed processing React Template', name || '', rturl);
             }
