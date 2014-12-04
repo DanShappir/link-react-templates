@@ -71,7 +71,9 @@ the text "Hello Jim" will be displayed in the browser window.
 The values of the *props* attribute is a comma-delimited list of name/values pairs, which are separated by colons. String values should be enclosed in single quotes. The entire value of *props* can be optionally enclosed in { }, to give it a JSON-like appearance.
 
 ## JavaScript for state
-Most React components maintain an internal state. With React Templates this is achieved by creating a JavaScript file adjacent to the .rt file. This JavaScript files is composed with the result of the compilation of the .rt to generate the React Component. linkrt requires that the JavaScript file have the same name and location as the .rt file. For example:
+Most React components maintain an internal state. With React Templates this is achieved by creating a JavaScript file adjacent to the .rt file. This JavaScript files is composed with the result of the compilation of the .rt to generate the React Component. linkrt requires that the JavaScript file have the same name and location as the .rt file.
+
+linkrt supports two types of syntax for the JavaScript file. Using the simple syntax that JavaScript file should be implemented as a single, self-invoking function that returns an object that will be used as the specification for *React.createClass*. This object should not implement a *render* method - instead linkrt will implement the *render* method from the React Template. For example:
 
 counter.rt
 ```html
@@ -82,7 +84,6 @@ counter.rt
 counter.js
 ```javascript
 (function () {
-	'use strict';
 	return {
 		getInitialState: function () {
 			return {counter:0};
@@ -93,9 +94,25 @@ counter.js
 	};
 }());
 ```
-Note that counter.js contains a single, self-invoking function that returns a JavaScript object to be used as the specification for *React.createClass*. Also note that this object **does not** implement a *render* method. The *render* method is generated automatically from the .rt file.
+Alternatively, the JavaScript file can be implemented using [RequireJS](http://requirejs.org/) syntax. In the requirement list, the React Template file must be specified by name. The return value will be the React class. For example:
 
-Script files retrieved by linkrt can use React, lodash and jQuery, without having to include these libraries from the HTML file.
+counter.js
+```javascript
+define(['react', 'counter.rt'], function (React, template) {
+	return React.createClass({
+		getInitialState: function () {
+			return {counter:0};
+		},
+		inc: function () {
+			this.setState({counter:this.state.counter + 1});
+		},
+		render: function () {
+			return template.apply(this, argument);
+		}
+	}};
+}());
+```
+Note that in this case, the *render* method must be implemented as shown in the sample. Also, in addition to 'react' and the React Template, the script can also require 'lodash' and 'jquey'.
 
 ## Component composition
 One of the most powerful features of React in general, and React Templates in particular, is the ability to [compose components](https://github.com/wix/react-templates#doctype-rt-require-dependencies-and-calling-other-components). linkrt supports this functionality using the *name* attribute on the &lt;link&gt; tag.
