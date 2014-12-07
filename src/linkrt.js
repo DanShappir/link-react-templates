@@ -41,12 +41,17 @@
                 return $.Deferred().resolve(reactTemplates.convertTemplateToReact(html.trim().replace(/\r/g, '')));
             }
 
+            function generateDefine(deferred) {
+                return function (dep, impl) {
+                    $.when.apply(null, _.map(dep, sync)).then(impl).done(deferred.resolve);
+                    return dep.pop();
+                };
+            }
+
             function generateTemplateFunction(code) {
                 return $.Deferred(function (deferred) {
                     /*eslint no-unused-vars:0*/
-                    function define(dep, impl) {
-                        $.when.apply(null, _.map(dep, sync)).then(impl).done(deferred.resolve);
-                    }
+                    var define = generateDefine(deferred);
                     /*eslint no-eval:0*/
                     eval(code);
                 });
@@ -55,19 +60,17 @@
             function generateReactClass(spec, render) {
                 return $.Deferred(function (deferred) {
                     /*eslint no-unused-vars:0*/
-                    function define(dep, impl) {
-                        // Extract name from URL
-                        sync(rturl.replace(/(?:.*\/)?([^/.]+)(?:\.rt)?$/, '$1.rt')).resolve(render);
-                        $.when.apply(null, _.map(dep, sync)).then(impl).done(deferred.resolve);
-                    }
+                    var define = generateDefine(deferred);
                     /*eslint no-eval:0*/
-                    spec = eval(spec);
-                    if (spec) {
-                        if (spec.render) {
+                    var result = eval(spec);
+                    if (typeof result === 'string') {
+                        sync(result).resolve(render);
+                    } else {
+                        if (result.render) {
                             console.warn('Rendering function already defined', name || '', rturl);
                         }
-                        spec.render = render;
-                        deferred.resolve(React.createClass(spec));
+                        result.render = render;
+                        deferred.resolve(React.createClass(result));
                     }
                 });
             }
