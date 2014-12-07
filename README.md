@@ -271,7 +271,7 @@ Here is a suggested best practice for using linkrt for designing, implementing a
         <button>Clear done</button>
     </div>
     ```
-4. Implement the JavaScript for event handling and state manipulation. If you are 
+4. Implement the JavaScript for event handling and state manipulation.
 
     index.html
     ```html
