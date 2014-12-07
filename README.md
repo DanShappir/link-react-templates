@@ -98,7 +98,7 @@ Alternatively, the JavaScript file can be implemented using [RequireJS](http://r
 
 counter.js
 ```javascript
-define(['react', 'counter.rt'], function (React, template) {
+define(['react', 'counter.rt'], function (React, render) {
 	return React.createClass({
 		getInitialState: function () {
 			return {counter:0};
@@ -106,9 +106,7 @@ define(['react', 'counter.rt'], function (React, template) {
 		inc: function () {
 			this.setState({counter:this.state.counter + 1});
 		},
-		render: function () {
-			return template.apply(this, argument);
-		}
+		render: render
 	}};
 }());
 ```
