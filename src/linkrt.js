@@ -26,6 +26,9 @@
         var sync = (function () {
             var map = {};
             return function (name) {
+                if (typeof name !== 'string') {
+                    return name;
+                }
                 if (!map.hasOwnProperty(name)) {
                     map[name] = $.Deferred();
                 }
@@ -41,10 +44,9 @@
                 return $.Deferred().resolve(reactTemplates.convertTemplateToReact(html.trim().replace(/\r/g, '')));
             }
 
-            function generateDefine(deferred) {
+            function generateDefine(deferred, map) {
                 return function (dep, impl) {
-                    $.when.apply(null, _.map(dep, sync)).then(impl).done(deferred.resolve);
-                    return dep.pop();
+                    $.when.apply(null, _.map(_.map(dep, map), sync)).then(impl).done(deferred.resolve);
                 };
             }
 
@@ -60,17 +62,16 @@
             function generateReactClass(spec, render) {
                 return $.Deferred(function (deferred) {
                     /*eslint no-unused-vars:0*/
-                    var define = generateDefine(deferred);
+                    var define = generateDefine(deferred, function (dep) {
+                        return dep.search(/\.rt$/) === -1 ? dep : $.Deferred().resolve(render);
+                    });
                     /*eslint no-eval:0*/
                     var result = eval(spec);
-                    if (typeof result === 'string') {
-                        sync(result).resolve(render);
-                    } else {
+                    if (result) {
                         if (result.render) {
                             console.warn('Rendering function already defined', name || '', rturl);
                         }
-                        result.render = render;
-                        deferred.resolve(React.createClass(result));
+                        deferred.resolve(React.createClass(_.assign(result, {render: render})));
                     }
                 });
             }
