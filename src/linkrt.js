@@ -39,9 +39,14 @@
         sync('lodash').resolve(_);
         sync('jquery').resolve($);
 
-        function process(rt, script, $container, name, props, rturl) {
+        $('link[type="text/rt"]').each(function () {
             function generateTemplateSource(html) {
-                return $.Deferred().resolve(reactTemplates.convertTemplateToReact(html.trim().replace(/\r/g, '')));
+                var deferred = $.Deferred();
+                try {
+                    return deferred.resolve(reactTemplates.convertTemplateToReact(html.trim().replace(/\r/g, '')));
+                } catch(e) {
+                    return deferred.reject('(' + rturl + ') Compile error: ' + e.message);
+                }
             }
 
             function generateDefine(deferred, map) {
@@ -52,26 +57,34 @@
 
             function generateTemplateFunction(code) {
                 return $.Deferred(function (deferred) {
-                    /*eslint no-unused-vars:0*/
-                    var define = generateDefine(deferred);
-                    /*eslint no-eval:0*/
-                    eval(code);
+                    try {
+                        /*eslint no-unused-vars:0*/
+                        var define = generateDefine(deferred);
+                        /*eslint no-eval:0*/
+                        eval(code);
+                    } catch(e) {
+                        deferred.reject('(' + rturl + ') Parse error: ' + e.message);
+                    }
                 });
             }
 
-            function generateReactClass(spec, render) {
+            function generateReactClass(render, spec) {
                 return $.Deferred(function (deferred) {
-                    /*eslint no-unused-vars:0*/
-                    var define = generateDefine(deferred, function (dep) {
-                        return dep.search(/\.rt$/) === -1 ? dep : $.Deferred().resolve(render);
-                    });
-                    /*eslint no-eval:0*/
-                    var result = eval(spec);
-                    if (result) {
-                        if (result.render) {
-                            console.warn('Rendering function already defined', name || '', rturl);
+                    try {
+                        /*eslint no-unused-vars:0*/
+                        var define = generateDefine(deferred, function (dep) {
+                            return dep.search(/\.rt$/) === -1 ? dep : $.Deferred().resolve(render);
+                        });
+                        /*eslint no-eval:0*/
+                        var result = eval(spec[0]);
+                        if (result) {
+                            if (result.render) {
+                                console.warn('Rendering function already defined', name || '', rturl);
+                            }
+                            deferred.resolve(React.createClass(_.assign(result, {render: render})));
                         }
-                        deferred.resolve(React.createClass(_.assign(result, {render: render})));
+                    } catch(e) {
+                        deferred.reject('(' + jsurl + ') JavaScript error: ' + e.message);
                     }
                 });
             }
@@ -98,17 +111,6 @@
                 }
             }
 
-            try {
-                generateTemplateSource(rt)
-                    .then(generateTemplateFunction)
-                    .then(generateReactClass.bind(this, script))
-                    .then(render);
-            } catch (e) {
-                console.error('Failed processing React Template', name || '', rturl);
-            }
-        }
-
-        $('link[type="text/rt"]').each(function () {
             var $this = $(this);
             var props = $this.attr('props');
             var name = $this.attr('name');
@@ -134,16 +136,14 @@
                 $.ajax({
                     url: rturl,
                     dataType: 'html'
-                }),
+                }).then(generateTemplateSource).then(generateTemplateFunction),
                 $.ajax({
                     url: jsurl,
                     dataType: 'text'
                 }).then(null, function () {
                     return $.Deferred().resolve(['new Object']);
                 })
-            ).done(function (rt, script) {
-                process(rt[0], script[0], $container, name, props, rturl);
-            });
+            ).then(generateReactClass).then(render, console.error.bind(console));
         });
     });
 }());
