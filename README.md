@@ -140,6 +140,18 @@ container.rt
 </div>
 ```
 
+## Alternate paths
+By default, linkrt assumes that both the .rt and .js files the constitute a component are next to each other (same URL, except for the file extension). You can override this default by specifying the script URL explicitly using the *data-script-href* attribute of the &lt;link;&gt; tag, for example:
+```html
+<link href="sample/todo" data-script-href="sample/todo2" type="text/rt">
+```
+Note that the files can now be placed at different locations, as well as have different names. As with the *href* attribute, the file extension is optional.
+
+By default, *href* (and *data-script-href*) values specified for &lt;link;&gt; tag are either absolute, or relative to the containing page's based address. You can explicitly specify an alternate base for all the linkrt tags by placing the *data-base* attribute on the linkrt &lt;script&gt; tag. You can also specify a base specifically for scripts using the *data-script-base* attribute:
+```html
+<script src="dist/linkrt.min.js" data-base="http://somewhereelse.com"></script> 
+```
+
 ## Advanced
 
 ### Render containers
