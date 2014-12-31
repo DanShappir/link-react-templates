@@ -1,6 +1,6 @@
 {
   "name": "link-react-templates",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Link to React Templates directly from within HTML",
   "publishConfig": {
     "registry": "http://repo.dev.wix/artifactory/api/npm/npm-local"
