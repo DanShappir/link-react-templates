@@ -6,7 +6,6 @@
 linkrt allows you to easily embed React Templates directly into the HTML, without requiring explicit pre-compilation, or any special mechanism on the server-side. Simply place &lt;link&gt; tags in the HTML which refer to the .rt files - linkrt will download the .rt files, compile them in-memory on the fly, and replace the original &lt;link&gt; tags with the result. For example, given the file sample.rt:
 
 ```html
-<!doctype rt>
 <div>Hello world</div>
 ```
 and an HTML file at the same location:
@@ -48,7 +47,6 @@ If an error occurs during download or processing of React Templates, an error me
 React utilizes the *props* setting to pass initialization data to components. linkrt supports this mechanism through the use of a *props* attribute on the &lt;link&gt; element. For example, given the .rt file:
 
 ```html
-<!doctype rt>
 <div>Hello {this.props.name}</div>
 ```
 and the HTML:
@@ -77,7 +75,6 @@ linkrt supports two types of syntax for the JavaScript file. Using the simple sy
 
 counter.rt
 ```html
-<!doctype rt>
 <div onClick="()=>this.inc()">Click to inc: {this.state.counter}</div>
 ```
 
@@ -134,7 +131,7 @@ index.html
 ```
 container.rt
 ```html
-<!doctype rt todo="component">
+<rt-require dependency="component" as="component"/>
 <div style="color:white; background-color:blue; padding:4px;">
     <component/>
 </div>
@@ -231,7 +228,6 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     ```
     todo.rt:
     ```html
-    <!doctype rt>
     <div>
         Have 0 todos done,
         and 1 not done
@@ -266,7 +262,6 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     ```
     todo.rt:
     ```html
-    <!doctype rt>
     <div>
         Have 0 todos done,
         and {this.props.todos.length} not done
@@ -301,7 +296,6 @@ Here is a suggested best practice for using linkrt for designing, implementing a
     ```
     todo.rt:
     ```html
-    <!doctype rt>
     <div>
         Have {_.filter(this.state.todos, {done:true}).length} todos done,
         and {_.filter(this.state.todos, {done:false}).length} not done
