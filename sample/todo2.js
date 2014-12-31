@@ -1,4 +1,4 @@
-define(['react', 'lodash', 'todo2.rt'], function (React, _, render) {
+define(['react', 'lodash', 'todo.rt'], function (React, _, render) {
     return React.createClass({
         mixins: [React.addons.LinkedStateMixin],
 

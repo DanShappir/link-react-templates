@@ -7,19 +7,31 @@
     var jQuery = require('jquery-browserify');
     var $ = jQuery;
 
-    if (document.currentScript && 'expose' in document.currentScript.dataset) {
-        if (!window.React) {
-            window.React = React;
-        }
-        if (!window._) {
-            window._ = _;
-        }
-        if (!window.jQuery) {
-            window.jQuery = jQuery;
-            if (!window.$) {
-                window.$ = $;
+    var base;
+    var scriptBase;
+    if (document.currentScript && document.currentScript.dataset) {
+        (function (dataset) {
+            base = dataset.base;
+            scriptBase = dataset.scriptBase || base;
+            if ('expose' in dataset) {
+                if (!window.React) {
+                    window.React = React;
+                }
+                if (!window._) {
+                    window._ = _;
+                }
+                if (!window.jQuery) {
+                    window.jQuery = jQuery;
+                    if (!window.$) {
+                        window.$ = $;
+                    }
+                }
             }
-        }
+        }(document.currentScript.dataset));
+    }
+
+    function joinURL(base, relative) {
+        return base ? base + '/' + relative : relative;
     }
 
     $(function () {
@@ -36,6 +48,7 @@
             };
         }());
         sync('react').resolve(React);
+        sync('react/addons').resolve(React);
         sync('lodash').resolve(_);
         sync('jquery').resolve($);
 
@@ -126,11 +139,10 @@
                     .replaceAll($this);
             }
 
-            var rturl = $this.attr('href');
-            if (rturl.search(/\.rt$/) === -1) {
-                rturl += '.rt';
-            }
-            var jsurl = rturl.replace(/rt$/, 'js');
+            var rturl = ($this.attr('href') || '').replace(/(\.rt)?$/, '.rt');
+            var jsurl = ($this.attr('data-script-href') || rturl.replace(/\.rt$/, '')).replace(/(\.js)?$/, '.js');
+            rturl = joinURL(base, rturl);
+            jsurl = joinURL(scriptBase, jsurl);
 
             $.when(
                 $.ajax({

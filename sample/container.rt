@@ -1,4 +1,5 @@
 <!doctype rt todo="todo">
+<rt-require dependency="todo" as="todo"/>
 <div style="color:white; background-color:blue; padding:4px; width:20em">
     <todo/>
 </div>
